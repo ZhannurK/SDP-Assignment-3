@@ -3,6 +3,11 @@ import java.util.List;
 
 class TaskProcessor {
     private final List<Task> tasks = new ArrayList<>();
+    private final TaskHandler firstHandler;
+
+    public TaskProcessor(TaskHandler firstHandler) {
+        this.firstHandler = firstHandler;
+    }
 
     public void addTask(Task task) {
         tasks.add(task);
@@ -10,32 +15,7 @@ class TaskProcessor {
 
     public void processTasks() {
         for (Task task : tasks) {
-            if (task.getPriority() == 1) {
-                handleLowPriority(task);
-            } else if (task.getPriority() == 2) {
-                handleMediumPriority(task);
-            } else if (task.getPriority() == 3) {
-                handleHighPriority(task);
-            }
+            firstHandler.handleTask(task);
         }
-    }
-
-    private void handleLowPriority(Task task) {
-        System.out.println("Low Priority Handler processing task: " + task.getName());
-        executeCommand(task);
-    }
-
-    private void handleMediumPriority(Task task) {
-        System.out.println("Medium Priority Handler processing task: " + task.getName());
-        executeCommand(task);
-    }
-
-    private void handleHighPriority(Task task) {
-        System.out.println("High Priority Handler processing task: " + task.getName());
-        executeCommand(task);
-    }
-
-    private void executeCommand(Task task) {
-        System.out.println("Executing task: " + task.getName());
     }
 }
